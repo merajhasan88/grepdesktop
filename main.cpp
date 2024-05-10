@@ -30,6 +30,7 @@ std::cout<<"Files in the directory are: "<<std::endl;
 //for(auto &entry : std::filesystem::directory_iterator(argv[3])){
 for(auto &entry : std::filesystem::directory_iterator(folder_name)){
 std::filesystem::path filePath=entry.path();	
+if(!std::filesystem::is_directory(std::filesystem::status(filePath))){
 if(filePath.extension()==".csv" || filePath.extension()==".txt"
 		|| filePath.extension()==".docx" || filePath.extension()==".doc"){
 std::ifstream infile(entry.path());
@@ -53,6 +54,7 @@ std::ifstream infile(entry.path());
 
 
 //std::cout <<entry.path()<<std::endl;
+}
 }
 }
 
