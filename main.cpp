@@ -56,8 +56,35 @@ std::ifstream infile(entry.path());
 //std::cout <<entry.path()<<std::endl;
 }
 }
-}
+else //File is a directory
+{
+for(auto& p: std::filesystem::recursive_directory_iterator(filePath)){
+std::filesystem::path recursivePath=p.path();
+if(recursivePath.extension()==".csv" || recursivePath.extension()==".txt"
+		|| recursivePath.extension()==".docx" || recursivePath.extension()==".doc"){
+std::ifstream infile(p.path());
+    if (!infile)
+    {
+        std::cout << "Cannot open " << p.path() << '\n';
+        return 1;
+    }
+      int lineno = 0;
+    std::string line;
+    while (getline(infile, line))
+    {
+        ++lineno;
+        auto pos = line.find(target);
+        if (pos != std::string::npos){
+            std::cout << lineno << ":" << pos << ": " << line << '\n';
+	std::cout <<p.path()<<std::endl;
+	}
 
+    }
+
+}
+}
+}
+}
 
   /*  int lineno = 0;
     std::string line;
